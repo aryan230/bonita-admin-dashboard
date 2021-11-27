@@ -1,0 +1,75 @@
+.auth {
+  max-width: 500px;
+  margin: auto;
+  padding: 30px;
+}
+
+.auth label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.auth input[type="text"],
+.auth input[type="email"],
+.auth input[type="password"],
+.auth select {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  font-size: 18px;
+  background-color: #f7f9fc;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.auth input[type="text"]:hover,
+.auth input[type="email"]:hover,
+.auth input[type="password"]:hover,
+.auth select:hover {
+  background-color: #edf1f7;
+  transition-duration: 0.3s;
+}
+
+.auth input[type="text"]:active,
+.auth input[type="email"]:active,
+.auth input[type="password"]:active,
+.auth select:active {
+  border-color: #3366ff;
+}
+
+.auth input[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.auth div {
+  margin-bottom: 20px;
+}
+
+.auth h1,
+.auth p {
+  display: flex;
+  justify-content: center;
+}
+
+.auth h1 {
+  font-weight: 700;
+}
+
+.btn {
+  background-color: #3366ff;
+  color: white;
+  height: 40px;
+  font-weight: 600;
+}
+
+.save {
+  display: flex;
+}
+
+.check-label {
+  margin-left: 10px;
+}
