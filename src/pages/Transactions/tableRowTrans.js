@@ -57,7 +57,7 @@ export const DialogueTable = () => {
   );
 };
 
-export const TableRowUser = (props) => {
+export const TableRowTrans = (props) => {
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const handleCloseBackdrop = () => {
     setOpenBackdrop(false);
@@ -68,14 +68,17 @@ export const TableRowUser = (props) => {
   const deleteBtnClick = async () => {
     if (window.confirm("Are you sure")) {
       console.log(
-        `https://postman365.herokuapp.com/api/user/${props.users.key}`
+        `https://postman365.herokuapp.com/api/category/${props.users.key}`
       );
-      fetch(`https://apiadminpanel.herokuapp.com/api/user/${props.users.key}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://apiadminpanel.herokuapp.com/api/category/${props.users.key}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.text()) // or res.json()
         .then((res) => {
-          window.location.replace('/');
+          window.location.replace("/dash");
           console.log(res);
         });
     } else {
@@ -88,18 +91,19 @@ export const TableRowUser = (props) => {
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
       <TableCell component="th" scope="row">
-        {props.users.name}
+        {props.users.title}
       </TableCell>
       <TableCell align="right">
-        <Chip label={props.users.role} color="success" size="small" />
+        <Chip label={props.users.id} color="success" size="small" />
       </TableCell>
-      <TableCell align="right">{props.users.email}</TableCell>
+      <TableCell align="right">{props.users.cod.slice(0,10)}</TableCell>
       <TableCell align="right">
-        <Link to={`/user/edit/${props.users.key}`} className="links">
+        {/* <Link to={`/category/edit/${props.users.key}`} className="links">
           <IconButton aria-label="delete">
             <EditIcon />
           </IconButton>
-        </Link>
+        </Link> */}
+        {props.users.date}
       </TableCell>
       <TableCell align="right">
         <IconButton aria-label="delete" size="large" onClick={deleteBtnClick}>

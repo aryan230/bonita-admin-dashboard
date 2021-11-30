@@ -2,24 +2,38 @@ import { useState } from "react";
 import "./login.css";
 import axios from "axios";
 import { BrowserRouter as Router, Route,Switch , Link} from "react-router-dom";
-// let user = localStorage.getItem('role');
-// if(user != undefined){
-//   window.location = 'http://localhost:3000/'
-// }
-const LoginPage = () => {
+const SignUpPage = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState();
+  const [number , setNumber] = useState();
+  const [name, setName] = useState();
   const [sucess, setSucess] = useState(false);
   const [error, setError] = useState(false);
   const loginBtnClick = async (e) => {
     e.preventDefault();
+    // let userData =         {
+    //   "email": email,
+    //   "password": password.toString(),
+    //   "phone": Number(number),
+    //   "mobileVerified":true,
+    //   "name": name.toString(),
+    //   "role": "admin"
+    // }
+
+    let userData = {
+      "name": `${name}`,
+      "email":`${email}`,
+      "phone": Number(number),
+      "mobileVerified":true,
+      "password": `${password}`,
+      "role":"customer"
+  }
+    console.log(userData)
     try {
       const res = await axios.post(
-        "https://apiadminpanel.herokuapp.com/api/auth/login",
-        {
-          email: email,
-          password: password
-        }
+        "https://apiadminpanel.herokuapp.com/api/auth/register",
+        userData
+
       );
       console.log(res);
 
@@ -46,8 +60,17 @@ const LoginPage = () => {
   return (
     <div className="mainContent">
     <div className="auth">
-      <h1>Login</h1>
+      <h1>Sign Up</h1>
       <form>
+      <div>
+          <label htmlFor="name">Name: </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div>
           <label htmlFor="email">Email address: </label>
           <input
@@ -55,6 +78,15 @@ const LoginPage = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="number">Number: </label>
+          <input
+            type="text"
+            id="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
           />
         </div>
         <div>
@@ -66,9 +98,8 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-       
-        <input type="submit" value="LOG IN" className="btn" onClick={loginBtnClick}/>
-        <Link to="/register" ><h4 className="linkBtn">Or SignUp</h4></Link>
+        <input type="submit" value="Sign Up" className="btn" onClick={loginBtnClick}/>
+        <Link to="/login" > <h4 className="linkBtn">Or Login</h4></Link>
         {sucess && ( <h2 className="sucess">Login Sucess... Redirecting</h2>)}
        {error && ( <h2 className="error">There was some error</h2>)}
        
@@ -79,4 +110,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

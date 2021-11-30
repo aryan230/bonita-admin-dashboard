@@ -203,3 +203,7 @@
 .list-item-text {
   font-size: 10rem;
 }
+
+a:hover {
+  cursor: pointer;
+}

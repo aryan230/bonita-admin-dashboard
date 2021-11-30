@@ -15,6 +15,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
+import { TableRowTrans } from "./tableRowTrans";
 // import { TableRowCat } from "./tableRowCat";
 // import { TableRowUser, DialogueTable } from "./tableRow";
 
@@ -37,7 +38,7 @@ const AllTransactions = () => {
     setOpenBackdrop(true);
     try {
       const response =
-        await axios.get(`https://apiadminpanel.herokuapp.com/api/order
+        await axios.get(`https://apiadminpanel.herokuapp.com/api/transaction
       `);
       console.log(response);
       if (response.status === 200) {
@@ -47,11 +48,11 @@ const AllTransactions = () => {
         let insideUsersRow = [];
         users.forEach((element) => {
           let html = createData(
-            `${element.title}`,
-            element._id,
-            `${element.cod}`,
-            `${element.date}`,
-            `${element.amount}`,
+            `${element.item_name}`,
+            `${element._id}`,
+            `${element.payment_mode}`,
+            `${element.transacton_date}`,
+            `${element.total_amount}`,
             6.0,
             24
           );
@@ -94,7 +95,11 @@ const AllTransactions = () => {
             <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody>      
+          {usersRow.map((row) => (
+         <TableRowTrans users={row}/>
+        ))}
+        
           {/* <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
             <TableCell component="th" scope="row">
               #2456

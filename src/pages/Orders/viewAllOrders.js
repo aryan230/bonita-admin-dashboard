@@ -15,11 +15,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
+import { TableRowOrder } from "./tableRowOrder";
 // import { TableRowCat } from "./tableRowCat";
 // import { TableRowUser, DialogueTable } from "./tableRow";
 
-function createData(title, key, slug, parent, edit, deleteCat) {
-  return { title, key, slug, parent, edit, deleteCat };
+function createData(title, key, slug, parent, amount, deleteCat) {
+  return { title, key, slug, parent , amount , deleteCat };
 }
 
 const AllOrders = () => {
@@ -47,10 +48,11 @@ const AllOrders = () => {
         let insideUsersRow = [];
         users.forEach((element) => {
           let html = createData(
-            `${element.title}`,
+            `${element.item_name}`,
             element._id,
-            `${element.slug}`,
-            `${element.parent}`,
+            `${element.status}`,
+            `${element.user.name}`,
+            `${element.total_amount}`,
             6.0,
             24
           );
@@ -94,6 +96,10 @@ const AllOrders = () => {
           </TableRow>
         </TableHead>
         <TableBody>
+        {usersRow.map((row) => (
+          <TableRowOrder users={row}/>
+        ))}
+          
           {/* <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
             <TableCell component="th" scope="row">
               #1214

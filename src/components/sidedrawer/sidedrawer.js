@@ -77,7 +77,7 @@ import AllDeliveryProfile from "../../pages/DeliveryProfile/viewAllDeliveryProfi
 import EditDeliveryProfile from "../../pages/DeliveryProfile/editDeliveryProfile";
 import DeliveryProfile from "../../pages/DeliveryProfile/addDeliveryProfile";
 import ViewBanners from "../../pages/banners/viewbanner";
-
+import { useState  , useEffect} from "react";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -146,9 +146,23 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+
+const role = localStorage.getItem('role');
+
+
+
 export default function SDrawer() {
+  // useEffect(() => {
+  //   let user = localStorage.getItem('User');
+  //   console.log(user);
+  //   if(user){
+  //     window.location = 'http://localhost:3000/login'
+  //   }
+  // } , [])
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [roleValue , setRoleValue] = React.useState();
   const [color, setcolor] = React.useState("Light");
   const [nestedOpen, setnestedOpen] = React.useState(false);
   const [nestedOpenCat, setNestedOpenCart] = React.useState(false);
@@ -189,7 +203,18 @@ export default function SDrawer() {
   const handleClickOrders = () => {
     setNestedOpenOrders(!nestedOpenOrders);
   };
-
+  let CustomerValue = false;
+  if(role == undefined)
+  {
+    window.location = 'http://localhost:3000/login'
+  }
+  else{
+    if(role == 'admin'){
+      CustomerValue = true;
+      console.log(true);
+    }
+  }
+ 
   const handleClickTransactions = () => {
     setNestedOpenTransactions(!nestedOpenTransactions);
   };
@@ -311,7 +336,10 @@ export default function SDrawer() {
               </FormControl> */}
             </div>
             <div style={{ paddingRight: "1.25rem" }}>
-              <a onClick={() => {window.location.replace('/login')}}>
+              <a onClick={() => {
+                localStorage.removeItem('role');
+                window.location.replace('/login')
+                }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
@@ -358,30 +386,32 @@ export default function SDrawer() {
                 <ListItemText primary="Users" />
               </Link>
             </ListItemButton> */}
-            <Divider />
-            {/* //Users */}
-            <ListItemButton onClick={handleClick}>
-              <ListItemIcon>
-                <PersonOutlineIcon />
-              </ListItemIcon>
-              <ListItemText primary="Users" />
-              {nestedOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={nestedOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <Link to="/user/add" className="links">
-                  <ListItemButton sx={{ pl: 9 }}>
-                    <ListItemText primary="Create User" />
-                  </ListItemButton>
-                </Link>
-                <Link to="/user/viewall" className="links">
-                  <ListItemButton sx={{ pl: 9 }}>
-                    <ListItemText primary="View All" />
-                  </ListItemButton>
-                </Link>
-              </List>
-            </Collapse>
-            <Divider />
+            { CustomerValue && (
+                          <div>
+                          <Divider />
+                          {/* //Users */}
+                          <ListItemButton onClick={handleClick}>
+                            <ListItemIcon>
+                              <PersonOutlineIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Users" />
+                            {nestedOpen ? <ExpandLess /> : <ExpandMore />}
+                          </ListItemButton>
+                          <Collapse in={nestedOpen} timeout="auto" unmountOnExit>
+                            <List component="div" disablePadding>
+                              <Link to="/user/add" className="links">
+                                <ListItemButton sx={{ pl: 9 }}>
+                                  <ListItemText primary="Create User" />
+                                </ListItemButton>
+                              </Link>
+                              <Link to="/user/viewall" className="links">
+                                <ListItemButton sx={{ pl: 9 }}>
+                                  <ListItemText primary="View All" />
+                                </ListItemButton>
+                              </Link>
+                            </List>
+                          </Collapse>
+                          <Divider />
             {/* Categories */}
             <ListItemButton onClick={handleClickCat}>
               <ListItemIcon>
@@ -404,27 +434,6 @@ export default function SDrawer() {
                 </Link>
               </List>
             </Collapse>
-            {/* <Collapse in={nestedOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <Link to="/user/add" className="links">
-                  <ListItemButton sx={{ pl: 7 }}>
-                    <ListItemText primary="Create User" />
-                  </ListItemButton>
-                </Link>
-                <Link to="/user/viewall" className="links">
-                  <ListItemButton sx={{ pl: 7 }}>
-                    <ListItemText primary="View All" />
-                  </ListItemButton>
-                </Link>
-              </List>
-            </Collapse> */}
-            {/* <ListItemButton>
-              <ListItemIcon>
-                <MenuIcon />
-              </ListItemIcon>
-              <ListItemText primary="Categories" />
-              {nestedOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton> */}
             <Divider />
             <ListItemButton onClick={handleClickBanner}>
               <ListItemIcon>
@@ -441,29 +450,6 @@ export default function SDrawer() {
                   </ListItemButton>
                 </Link>
                 <Link to="/banner/viewall" className="links">
-                  <ListItemButton sx={{ pl: 9 }}>
-                    <ListItemText primary="View All" />
-                  </ListItemButton>
-                </Link>
-              </List>
-            </Collapse>
-       
-            <Divider />
-           <ListItemButton onClick={handleClickOrders}>
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Orders" />
-              {nestedOpenOrders ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={nestedOpenOrders} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {/* <Link to="/orders/add" className="links">
-                  <ListItemButton sx={{ pl: 7 }}>
-                    <ListItemText primary="Add new" />
-                  </ListItemButton>
-                </Link> */}
-                <Link to="/orders/viewall" className="links">
                   <ListItemButton sx={{ pl: 9 }}>
                     <ListItemText primary="View All" />
                   </ListItemButton>
@@ -492,6 +478,57 @@ export default function SDrawer() {
                 </Link>
               </List>
             </Collapse>
+                          </div>
+            )}
+
+
+
+            {/* <Collapse in={nestedOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/user/add" className="links">
+                  <ListItemButton sx={{ pl: 7 }}>
+                    <ListItemText primary="Create User" />
+                  </ListItemButton>
+                </Link>
+                <Link to="/user/viewall" className="links">
+                  <ListItemButton sx={{ pl: 7 }}>
+                    <ListItemText primary="View All" />
+                  </ListItemButton>
+                </Link>
+              </List>
+            </Collapse> */}
+            {/* <ListItemButton>
+              <ListItemIcon>
+                <MenuIcon />
+              </ListItemIcon>
+              <ListItemText primary="Categories" />
+              {nestedOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton> */}
+
+       
+            <Divider />
+           <ListItemButton onClick={handleClickOrders}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Orders" />
+              {nestedOpenOrders ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={nestedOpenOrders} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {/* <Link to="/orders/add" className="links">
+                  <ListItemButton sx={{ pl: 7 }}>
+                    <ListItemText primary="Add new" />
+                  </ListItemButton>
+                </Link> */}
+                <Link to="/orders/viewall" className="links">
+                  <ListItemButton sx={{ pl: 9 }}>
+                    <ListItemText primary="View All" />
+                  </ListItemButton>
+                </Link>
+              </List>
+            </Collapse>
+
             <Divider />
              <ListItemButton>
               <ListItemIcon>

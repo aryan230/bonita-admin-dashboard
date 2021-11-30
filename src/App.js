@@ -5,8 +5,12 @@ import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 import Dashboard from "./components/appbar/appbar";
 import LoginPage from "./pages/auth/login";
 import { useEffect, useState } from "react";
+import SignUpPage from "./pages/auth/signup";
+import Main from "./pages/auth/main";
+
+let user  = localStorage.getItem('role');
+
 function App() {
-  const [user , setUser] = useState(false);
   // useEffect(() => {
   //   let user = localStorage.getItem("User")
   //   if(!user){
@@ -14,15 +18,23 @@ function App() {
   //     window.location.replace('/dash');
   //   }
   // }, [])
+  let userThere = false;
+if(user != undefined){
+  userThere = true;
+}
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path="/">
-          <Drawer />
+            {userThere && ( <Drawer />)}
+            <Main/>
           </Route>
           <Route path="/login">
             <LoginPage></LoginPage>
+          </Route>
+          <Route path="/register">
+            <SignUpPage></SignUpPage>
           </Route>
         </Switch>
         </Router>
