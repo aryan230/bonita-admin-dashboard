@@ -16,6 +16,8 @@ import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import { TableRowOrder } from "./tableRowOrder";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 // import { TableRowCat } from "./tableRowCat";
 // import { TableRowUser, DialogueTable } from "./tableRow";
 
@@ -24,6 +26,7 @@ function createData(title, key, slug, parent, amount, deleteCat) {
 }
 
 const AllOrders = () => {
+  const [alert, setAlert] = useState(false);
   const deleteBtnClick = (event) => {
     console.log.apply(event);
   };
@@ -76,8 +79,72 @@ const AllOrders = () => {
       console.log(err);
     }
   }, []);
+  let array = usersRow.at(-1);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+//  let userData = {
+//    "item_name": array.title,
+//    "item_category": "category",
+//    "total_amount": 500,
+//    "status": array.slug
+//  }
+
+ let userData = {
+  "item_name":"Order 9",
+  "item_category":"Category",
+  "total_amount":500,
+  "status":"pending"
+}
+  const repeatOrderButton = async () => {
+    setOpenBackdrop(true);
+    console.log(userData);
+    try {
+      const res = await axios.get(
+        "https://apiadminpanel.herokuapp.com/api/order/repeatorder"
+        
+      );
+      console.log(res);
+
+      if (res.status == "200") {
+        handleCloseBackdrop();
+        setAlert(true);
+        alertShowerSucess("Account Created Sucess");
+        // setAlert(true);
+        // alertShowerSucess("Account Created Sucess");
+        console.log(res.data.message);
+      } else {
+        // // setAlertError(true);
+        // alertShowerError("Error");
+        handleCloseBackdrop();
+      }
+    } catch (error) {
+      // setAlertError(true);
+      // alertShowerError("Error");
+      handleCloseBackdrop();
+      console.log(error);
+    }
+  }
+
+  const alertShowerSucess = (message) => {
+    return (
+      <Alert
+        onClose={handleClose}
+        variant="filled"
+        severity="success"
+        sx={{ width: "100%"}}
+      >
+        Order Created Sucessfully
+      </Alert>
+    );
+  };
 
   return (
+    <div>
     <TableContainer component={Paper}>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -124,6 +191,14 @@ const AllOrders = () => {
         </TableBody>
       </Table>
     </TableContainer>
+   
+    <Button variant="contained" color="error" size="large" sx={{m: 5}} onClick={repeatOrderButton}>
+          Repeat Last Order
+        </Button>
+        {alert && alertShowerSucess()}
+    </div>
+
+
   );
 };
 

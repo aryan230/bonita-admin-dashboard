@@ -28,7 +28,7 @@ if(user != undefined){
         <Switch>
           <Route exact path="/">
             {userThere && ( <Drawer />)}
-            <Main/>
+            {!userThere && (<Main/>)}
           </Route>
           <Route path="/login">
             <LoginPage></LoginPage>

@@ -78,7 +78,7 @@ export const TableRowOrder = (props) => {
       )
         .then((res) => res.text()) // or res.json()
         .then((res) => {
-          window.location.replace("/dash");
+          window.location.replace("/");
           console.log(res);
         });
     } else {
