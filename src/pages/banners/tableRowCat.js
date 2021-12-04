@@ -23,6 +23,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
+
 export const DialogueTable = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -58,6 +59,7 @@ export const DialogueTable = () => {
 };
 
 export const TableRowProduct = (props) => {
+  console.log(props)
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const handleCloseBackdrop = () => {
     setOpenBackdrop(false);

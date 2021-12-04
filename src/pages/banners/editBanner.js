@@ -29,6 +29,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { useParams } from "react-router";
 import SelectTwo from 'react-select';
 import makeAnimated from 'react-select/animated';
+import Chip from '@mui/material/Chip';
 
 const EditBanners = () => {
   const [openSnack, setOpenSnack] = useState(false);
