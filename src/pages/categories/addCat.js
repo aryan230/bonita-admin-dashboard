@@ -113,10 +113,7 @@ const CategoriesForm = () => {
       // }
       let userData = {
         title: name.toString(),
-        slug: slug,
-        sortOrder: number,
-        parent: "",
-        metafeilds: metaFeilds,
+        slug: slug
       };
       console.log(userData);
       try {
@@ -218,7 +215,7 @@ const CategoriesForm = () => {
           error={emailError}
           onChange={(e) => setSlug(e.target.value)}
         />
-        <br />
+        {/* <br />
         <TextField
           required
           fullWidth
@@ -230,68 +227,9 @@ const CategoriesForm = () => {
           margin="normal"
           error={numberError}
           onChange={(e) => setNumber(Number(e.target.value))}
-        />
-        <br />
-        <FormControl fullWidth margin="normal">
-          <InputLabel id="demo-simple-select-label">Parent</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Roles"
-            onChange={(event) => selectChange(event)}
-          >
-            {/* <MenuItem value={"admin"}>Admin</MenuItem>
-            <MenuItem value={"customer"}>Customer</MenuItem>
-            <MenuItem value={"vendor"}>Vendor</MenuItem> */}
-          </Select>
-        </FormControl>
-        <br />
+        /> */}
 
-        <Box component="span" sx={{ p: 2, boxShadow: 10, width: 1 }}>
-          <Typography variant="h6" component="div" gutterBottom sx={{ m: 2 }}>
-            Meta Feilds
-          </Typography>
-          {display()}
-          {/* {metaFeilds.map((ele) => (
-            <Meta data={ele} />
-          ))} */}
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-          >
-            <TextField
-              sx={{ width: 1 / 2 }}
-              required
-              label="Enter Key"
-              id="fullWidth"
-              variant="outlined"
-              error={nameError}
-              onChange={(e) => setKey(e.target.value)}
-            />
-            <TextField
-              sx={{ width: 1 / 2 }}
-              required
-              label="Enter Value"
-              id="fullWidth"
-              variant="outlined"
-              error={nameError}
-              onChange={(e) => setValue(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              size="large"
-              margin="normal"
-              onClick={addButtonClicked}
-            >
-              Add
-            </Button>
-            {/* <IconButton aria-label="delete" size="large">
-              <DeleteIcon />
-            </IconButton> */}
-          </Stack>
-        </Box>
+        <br />
         <br />
         <Button
           variant="contained"

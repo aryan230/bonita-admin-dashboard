@@ -78,7 +78,7 @@ export const TableRowCat = (props) => {
       )
         .then((res) => res.text()) // or res.json()
         .then((res) => {
-          window.location.replace("/dash");
+          window.location.replace("/");
           console.log(res);
         });
     } else {
@@ -96,7 +96,7 @@ export const TableRowCat = (props) => {
       <TableCell align="right">
         <Chip label={props.users.slug} color="success" size="small" />
       </TableCell>
-      <TableCell align="right">{props.users.parent}</TableCell>
+      
       <TableCell align="right">
         <Link to={`/category/edit/${props.users.key}`} className="links">
           <IconButton aria-label="delete">

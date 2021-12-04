@@ -108,7 +108,7 @@ const CreateUser = () => {
         "phone": Number(number),
         "mobileVerified":true,
         "password": password.toString(),
-        "role": "admin"
+        "role": select
     };
       console.log(userData);
       try {
@@ -221,7 +221,7 @@ const CreateUser = () => {
           >
             <MenuItem value={"admin"}>Admin</MenuItem>
             <MenuItem value={"customer"}>Customer</MenuItem>
-            <MenuItem value={"vendor"}>Vendor</MenuItem>
+            {/* <MenuItem value={"vendor"}>Vendor</MenuItem> */}
           </Select>
         </FormControl>
         <br />

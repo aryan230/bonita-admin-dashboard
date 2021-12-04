@@ -20,8 +20,8 @@ import { TableRowProduct } from "./tableRowCat";
 // import { TableRowCat } from "./tableRowCat";
 // import { TableRowUser, DialogueTable } from "./tableRow";
 
-function createData(title, key, category, price,  image, about,edit, deleteCat) {
-  return { title, key,  category, price, image , about , deleteCat };
+function createData(title, key, category, price, size , color,image, about,edit, deleteCat) {
+  return { title, key,  category, price, size , color, image , about ,edit ,deleteCat };
 }
 
 const ViewBanners = () => {
@@ -53,6 +53,8 @@ const ViewBanners = () => {
             element._id,
             `${element.category}`,
             `${element.total_price}`,
+            `${element.variations.size}`,
+            `${element.variations.color}`,
             `${element.image}`,
             `${element.description}`,
             6.0,
@@ -93,8 +95,12 @@ const ViewBanners = () => {
             <TableCell>TITLE</TableCell>
             <TableCell align="right">Category</TableCell>
             <TableCell align="right">Total Price</TableCell>
+            <TableCell align="right">Size</TableCell>
+            <TableCell align="right">Color</TableCell>
             <TableCell align="right">Image</TableCell>
             <TableCell align="right">About</TableCell>
+            <TableCell align="right">Edit</TableCell>
+            <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

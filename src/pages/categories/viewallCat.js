@@ -49,7 +49,6 @@ const AllCategories = () => {
             `${element.title}`,
             element._id,
             `${element.slug}`,
-            `${element.parent}`,
             6.0,
             24
           );
@@ -87,7 +86,7 @@ const AllCategories = () => {
           <TableRow>
             <TableCell>Title</TableCell>
             <TableCell align="right">Slug</TableCell>
-            <TableCell align="right">Scope</TableCell>
+          
             <TableCell align="right">Edit</TableCell>
             <TableCell align="right">Delete</TableCell>
           </TableRow>

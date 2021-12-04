@@ -26,13 +26,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FormLabel from '@mui/material/FormLabel';
 import { CardTravel } from "@mui/icons-material";
 import FormGroup from '@mui/material/FormGroup';
-import { styled } from '@mui/material/styles';
+import { useParams } from "react-router";
 import SelectTwo from 'react-select';
 import makeAnimated from 'react-select/animated';
-import Avatar from '@mui/material/Avatar';
-import Chip from '@mui/material/Chip';
 
-const AddBanners = () => {
+const EditBanners = () => {
   const [openSnack, setOpenSnack] = useState(false);
   const [alert, setAlert] = useState(false);
   const [alertError, setAlertError] = useState(false);
@@ -51,7 +49,7 @@ const AddBanners = () => {
   let [key, setKey] = useState("");
   let [value, setValue] = useState("");
   let [metaFeilds, setMetaFeilds] = useState([]);
-
+  const { id } = useParams();
   //Errors
   const [emailError, setEmailError] = useState(false);
   const [nameError, setNameError] = useState(false);
@@ -94,6 +92,36 @@ const AddBanners = () => {
     { value: 'vanilla', label: 'Vanilla' }
   ]
   const animatedComponents = makeAnimated();
+
+  useEffect(async () => {
+    setOpenBackdrop(true);
+    try {
+      const response = await axios.get(
+        `https://apiadminpanel.herokuapp.com/api/product/${id}`
+      );
+      console.log(response);
+      if (response.status === 200) {
+        handleCloseBackdrop();
+        let data = response.data.data;
+        console.log(response.data.data);
+        setName(data.title);
+        setDes(data.description)
+        SetImageLink(data.image)
+        setNumber(data.sortOrder)
+        setColor(data.variations.color)
+        setSelect(data.category)
+        setSize(data.variations.size)
+        // setEmail(data.email);
+        // setNumber(data.mobileNumber);
+      } else {
+        handleCloseBackdrop();
+        console.log("ID Does not Exists");
+      }
+    } catch (err) {
+      handleCloseBackdrop();
+      console.log(err);
+    }
+  }, []);
 
 
   useEffect( async () => {
@@ -210,8 +238,8 @@ const AddBanners = () => {
   }
       console.log(userData);
       try {
-        const res = await axios.post(
-          "https://apiadminpanel.herokuapp.com/api/product",
+        const res = await axios.put(
+          `https://apiadminpanel.herokuapp.com/api/product/${id}`,
           userData
         );
         console.log(res);
@@ -257,9 +285,6 @@ const AddBanners = () => {
 
   let items = [];
   let addMetaFeilds = () => {};
-  const Input = styled('input')({
-    display: 'none',
-  })
   const addButtonClicked = (e) => {
     e.preventDefault();
     console.log("CLICKED");
@@ -273,57 +298,6 @@ const AddBanners = () => {
     // setMetaFeilds(metaFeilsArray);
     // // display();
   };
-
- 
-  const [arefiles , setFiles] = useState(false);
-  const [realFiles , setRealFiles] = useState([]);
-  let files = [];
-  const fileSelectedHandler = async (e) => {
-    if(e.target.files.length > 0 ){
-      setFiles(true);
-    }
-  files = e.target.files;
- let filesArray = e.target.files;
- console.log(files);
- setRealFiles(Array.from(filesArray));
- Array.from(filesArray).forEach( async element => {
-  console.log(element)
-  const formData = new FormData();
-  formData.append('File', realFiles[0]);
-
-  // try {
-  //   const res = await axios.post(
-  //     "https://api.imgbb.com/1/upload?expiration=600&key=86baa6af6803667403ee4e0ea43df602",
-  //     realFiles[0]
-  //   );
-  //   console.log(res);
-
-  //   if (res.status == "200") {
-
-  //     console.log(res);
-  //   } else {
-
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  fetch(
-    'https://cors-anywhere.herokuapp.com/https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5',
-    {
-      method: 'POST',
-      body: formData,
-    }
-  )
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
- });
-
-  }
   return (
     <Box
       component="main"
@@ -340,7 +314,7 @@ const AddBanners = () => {
       </Backdrop>
       <div className="user">
         <Typography variant="h4" component="div" gutterBottom>
-          Add Product
+          Edit Product - {name}
         </Typography>
         {/* <SelectTwo sx={{w:1}}
       closeMenuOnSelect={false}
@@ -363,6 +337,7 @@ const AddBanners = () => {
           margin="normal"
           error={nameError}
           onChange={(e) => setName(e.target.value)}
+          placeholder = {name}
         />
         <br />
         <TextField
@@ -374,6 +349,7 @@ const AddBanners = () => {
           margin="normal"
           error={nameError}
           onChange={(e) => setDes(e.target.value)}
+          placeholder = {name}
         />
         <br />
 
@@ -533,7 +509,7 @@ const AddBanners = () => {
           error={numberError}
           onChange={(e) => setPrice(Number(e.target.value))}
         />
-        {/* <br/> */}
+        <br/>
         {/* <div>
         <label htmlFor="contained-button-file">
         <Input accept="image/*" id="contained-button-file" multiple type="file" />
@@ -542,7 +518,7 @@ const AddBanners = () => {
         </Button>
       </label>
         </div> */}
-        {/* <TextField
+        <TextField
           required
           fullWidth
           label="Set Image Link"
@@ -551,25 +527,9 @@ const AddBanners = () => {
           margin="normal"
           error={nameError}
           onChange={(e) => SetImageLink(e.target.value)}
-        /> */}
-        <br/>
-        <Typography variant="h6" component="div" gutterBottom>
-          Add Images
-        </Typography>
-        <label htmlFor="contained-button-file">
-        <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={(e) => {fileSelectedHandler(e)}}/>
-        <Button variant="contained" component="span">
-          Upload Image
-        </Button>
-      </label>
+        />
+        
         <br />
-        <Stack direction="row" spacing={2}>
-          {arefiles && realFiles.map((file) => (<Chip label={file.name} />))}
-          {/* <h4>Uploaded Images - <Chip label={realFiles[0].name} /></h4> */}
-        {/* {files.map((file) => (<h1>{file.name}</h1>))} */}
-        {/* <Chip label={files[0].file.name} /> */}
-    </Stack>
-        <br/>
         <Button
           variant="contained"
           size="large"
@@ -584,4 +544,4 @@ const AddBanners = () => {
   );
 };
 
-export default AddBanners;
+export default EditBanners;

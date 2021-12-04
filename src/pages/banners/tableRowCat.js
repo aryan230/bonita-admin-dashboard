@@ -71,7 +71,7 @@ export const TableRowProduct = (props) => {
         `https://postman365.herokuapp.com/api/category/${props.users.key}`
       );
       fetch(
-        `https://postman365.herokuapp.com/api/category/${props.users.key}`,
+        `https://apiadminpanel.herokuapp.com/api/product/${props.users.key}`,
         {
           method: "DELETE",
         }
@@ -94,12 +94,26 @@ export const TableRowProduct = (props) => {
       <Chip label={props.users.category} color="success" size="small" />
     </TableCell>
     <TableCell align="right">{props.users.price}/-</TableCell>
+    <TableCell align="right">{props.users.size}</TableCell>
+    <TableCell align="right">{props.users.color}</TableCell>
     <TableCell align="right">
     <img src={props.users.image}></img>
     </TableCell>
     <TableCell align="right" sx={{width: 1/4}}>
         {props.users.about}
     </TableCell>
+    <TableCell align="right">
+        <Link to={`/banner/edit/${props.users.key}`} className="links">
+          <IconButton aria-label="delete">
+            <EditIcon />
+          </IconButton>
+        </Link>
+      </TableCell>
+    <TableCell align="right">
+        <IconButton aria-label="delete" size="large" onClick={deleteBtnClick}>
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
   </TableRow>
   );
 };

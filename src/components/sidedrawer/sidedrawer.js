@@ -78,6 +78,7 @@ import EditDeliveryProfile from "../../pages/DeliveryProfile/editDeliveryProfile
 import DeliveryProfile from "../../pages/DeliveryProfile/addDeliveryProfile";
 import ViewBanners from "../../pages/banners/viewbanner";
 import { useState  , useEffect} from "react";
+import EditBanners from "../../pages/banners/editBanner";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -529,14 +530,14 @@ export default function SDrawer() {
               </List>
             </Collapse>
 
-            <Divider />
+            {/* <Divider />
              <ListItemButton>
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary="User Settings" />
               {nestedOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
+            </ListItemButton> */}
             {/* <ListItemButton onClick={handleClick}>
               <ListItemIcon>
                 <InboxIcon />
@@ -1000,6 +1001,18 @@ export default function SDrawer() {
             >
               <DrawerHeader />
               <ViewBanners></ViewBanners>
+            </Box>
+          </Route>
+          <Route path="/banner/edit/:id">
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                padding: " 2.25rem 2.25rem 0.75rem ",
+              }}
+            >
+              <DrawerHeader />
+              <EditBanners></EditBanners>
             </Box>
           </Route>
           <Route path="/coupons/add">
