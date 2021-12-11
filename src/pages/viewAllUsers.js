@@ -15,12 +15,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
 import { TableRowUser, DialogueTable } from "./tableRow";
-
 function createData(name, key, role, email, edit, deleteUser) {
   return { name, key, role, email, edit, deleteUser };
 }
 
 const AllUsers = () => {
+  
   const deleteBtnClick = (event) => {
     console.log.apply(event);
   };

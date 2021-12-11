@@ -79,6 +79,7 @@ import DeliveryProfile from "../../pages/DeliveryProfile/addDeliveryProfile";
 import ViewBanners from "../../pages/banners/viewbanner";
 import { useState  , useEffect} from "react";
 import EditBanners from "../../pages/banners/editBanner";
+import Cookies from "js-cookie";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -339,6 +340,7 @@ export default function SDrawer() {
             <div style={{ paddingRight: "1.25rem" }}>
               <a onClick={() => {
                 localStorage.removeItem('role');
+                Cookies.remove('token');
                 window.location.replace('/login')
                 }}>
                 <svg

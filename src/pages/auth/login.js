@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./login.css";
 import axios from "axios";
 import { BrowserRouter as Router, Route,Switch , Link} from "react-router-dom";
+import Cookies from 'js-cookie'
+
 // let user = localStorage.getItem('role');
 // if(user != undefined){
 //   window.location = 'http://localhost:3000/'
@@ -22,12 +24,11 @@ const LoginPage = () => {
         }
       );
       console.log(res);
-
       if (res.status == "200") {
         console.log(res.data.user.role);
         localStorage.setItem('role',res.data.user.role)
-        // localStorage.setItem('User', true);
-        window.location.replace('/')
+        // Cookies.set('token', res.data.token)
+        // window.location.replace('/')
         setSucess(true);
         setError(false)
         
@@ -41,6 +42,22 @@ const LoginPage = () => {
       console.log(error)
       setError(true)
       setSucess(false);
+    }
+    try {
+      const res = await axios.post(
+        "https://apiadminpanel.herokuapp.com/api/dummy",
+        {}
+      );
+      console.log(res);
+        
+      if (res.status == "200") {
+        console.log('SOMETHING')
+      } else {
+        console.log('SOME ERROR')
+
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   return (

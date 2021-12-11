@@ -48,6 +48,8 @@ const ViewBanners = () => {
         console.log(users);
         let insideUsersRow = [];
         users.forEach((element) => {
+          let image = element.image[0];
+          console.log(image)
           let html = createData(
             `${element.title}`,
             element._id,
@@ -55,7 +57,7 @@ const ViewBanners = () => {
             `${element.total_price}`,
             `${element.variations.size}`,
             `${element.variations.color}`,
-            `${element.image}`,
+            `${image}`,
             `${element.description}`,
             6.0,
             24

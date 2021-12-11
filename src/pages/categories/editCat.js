@@ -32,6 +32,7 @@ const EditCat = (props) => {
   const [password, setPassword] = useState();
   const [isVerified, setisVerified] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
+  const [realFiles , setRealFiles] = useState([]);
   const [slug, setSlug] = useState("");
   let [metaFeilds, setMetaFeilds] = useState([]);
   let [key, setKey] = useState("");
@@ -63,6 +64,7 @@ const EditCat = (props) => {
         console.log(response.data.data);
         setName(data.title);
         setSlug(data.slug)
+        setRealFiles(data.image)
         // setEmail(data.email);
         // setNumber(data.mobileNumber);
       } else {
@@ -199,7 +201,9 @@ const EditCat = (props) => {
         />
 
         <br />
-
+        <Stack direction="row" spacing={2}>
+          {arefiles && realFiles.map((file) => (<Chip label={file.name} />))}
+    </Stack>
         <br />
         <Button
           variant="contained"

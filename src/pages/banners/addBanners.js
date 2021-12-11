@@ -46,7 +46,7 @@ const AddBanners = () => {
   const [number, setNumber] = useState();
   const [password, setPassword] = useState();
   const [isVerified, setisVerified] = useState(false);
-  const [image, SetImageLink] = useState();
+  const [image, SetImageLink] = useState([]);
   const [openBackdrop, setOpenBackdrop] = useState(false);
   let [key, setKey] = useState("");
   let [value, setValue] = useState("");
@@ -289,38 +289,39 @@ const AddBanners = () => {
  Array.from(filesArray).forEach( async element => {
   console.log(element)
   const formData = new FormData();
-  formData.append('File', realFiles[0]);
+  formData.append("file", element);
+  formData.append("upload_preset" , "p5diwp8s");
+console.log(formData)
+  try {
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/dhljctjzx/image/upload",
+      formData
+    );
+    console.log(res);
 
-  // try {
-  //   const res = await axios.post(
-  //     "https://api.imgbb.com/1/upload?expiration=600&key=86baa6af6803667403ee4e0ea43df602",
-  //     realFiles[0]
-  //   );
-  //   console.log(res);
+    if (res.status == "200") {
+      console.log(res.data.secure_url);
+      image.push(res.data.secure_url)
+    } else {
 
-  //   if (res.status == "200") {
-
-  //     console.log(res);
-  //   } else {
-
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  fetch(
-    'https://cors-anywhere.herokuapp.com/https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5',
-    {
-      method: 'POST',
-      body: formData,
     }
-  )
-    .then((response) => response.json())
-    .then((result) => {
-      console.log('Success:', result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+  } catch (error) {
+    console.log(error);
+  }
+  // fetch(
+  //   'https://cors-anywhere.herokuapp.com/https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5',
+  //   {
+  //     method: 'POST',
+  //     body: formData,
+  //   }
+  // )
+  //   .then((response) => response.json())
+  //   .then((result) => {
+  //     console.log('Success:', result);
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error:', error);
+  //   });
  });
 
   }
